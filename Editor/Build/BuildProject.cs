@@ -240,6 +240,9 @@ namespace SuperUnityBuild.BuildTool
             // Adjust scripting backend
             PlayerSettings.SetScriptingBackend(platform.targetGroup, scriptingBackend.scriptingImplementation);
 
+            // Set WaitForDebugger flag
+            EditorUserBuildSettings.waitForManagedDebugger = releaseType.waitForDebugger;
+
             // Apply defines
             string preBuildDefines = PlayerSettings.GetScriptingDefineSymbolsForGroup(platform.targetGroup);
             string buildDefines = GenerateDefaultDefines(releaseType, platform, architecture, scriptingBackend, distribution);

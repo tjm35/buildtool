@@ -74,6 +74,7 @@ namespace SuperUnityBuild.BuildTool
                 EditorGUILayout.PropertyField(property.FindPropertyRelative("customDefines"));
 
                 SerializedProperty buildOptions = property.FindPropertyRelative("buildOptions");
+                SerializedProperty waitForDebugger = property.FindPropertyRelative("waitForDebugger");
 
                 bool enableHeadlessMode = ((BuildOptions)buildOptions.intValue & BuildOptions.EnableHeadlessMode) == BuildOptions.EnableHeadlessMode;
                 bool developmentBuild = ((BuildOptions)buildOptions.intValue & BuildOptions.Development) == BuildOptions.Development;
@@ -92,6 +93,10 @@ namespace SuperUnityBuild.BuildTool
                 EditorGUI.EndDisabledGroup();
                 if (allowDebugging) buildOptions.intValue |= (int)BuildOptions.AllowDebugging;
                 else buildOptions.intValue &= ~(int)BuildOptions.AllowDebugging;
+
+                EditorGUI.BeginDisabledGroup(!developmentBuild || !allowDebugging);
+                waitForDebugger.boolValue = EditorGUILayout.ToggleLeft(" Wait for Debugger", waitForDebugger.boolValue);
+                EditorGUI.EndDisabledGroup();
 
                 GUILayout.Space(15);
                 buildOptions.intValue = (int)(BuildOptions)EditorGUILayout.EnumFlagsField("Advanced Options", (BuildOptions)buildOptions.intValue);

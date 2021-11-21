@@ -18,6 +18,7 @@ namespace SuperUnityBuild.BuildTool
 
         public BuildOptions buildOptions;
         public string customDefines = string.Empty;
+        public bool waitForDebugger = false;
 
         public SceneList sceneList = new SceneList();
     }
