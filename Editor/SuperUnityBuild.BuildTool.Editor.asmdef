@@ -1,7 +1,9 @@
 {
     "name": "SuperUnityBuild.BuildTool.Editor",
     "rootNamespace": "SuperUnityBuild.BuildTool",
-    "references": [],
+    "references": [
+        "GUID:ece993b65fc96884d94b148e01e9c125"
+    ],
     "includePlatforms": [
         "Editor"
     ],

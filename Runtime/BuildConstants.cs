@@ -10,5 +10,6 @@ namespace SuperUnityBuild.Runtime
         public static string Platform = null;
         public static string Architecture = null;
         public static string Distribution = null;
+        public static string ScriptingBackend = null;
     }
 }

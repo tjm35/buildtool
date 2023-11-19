@@ -1,3 +1,4 @@
+using SuperUnityBuild.Runtime;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -254,6 +255,7 @@ namespace SuperUnityBuild.BuildTool
                 WritePush("Platform", "platform.ToString()");
                 WritePush("Architecture", "architecture.ToString()");
                 WritePush("Distribution", "distribution.ToString()");
+                WritePush("ScriptingBackend", "scriptingBackend.ToString()");
 
                 writer.WriteLine("        }");
 
@@ -265,6 +267,15 @@ namespace SuperUnityBuild.BuildTool
 
             // Refresh AssetDatabse so that changes take effect.
             AssetDatabase.Refresh();
+
+            // Set these values on SuperUnityBuild.Runtime.BuildConstants now, so they're available to code running during the build.
+            BuildConstants.BuildDate = buildTime;
+            BuildConstants.Version = versionString;
+            BuildConstants.ReleaseType = releaseTypeString;
+            BuildConstants.Platform = platformString;
+            BuildConstants.Architecture = architectureString;
+            BuildConstants.Distribution = distributionString;
+            BuildConstants.ScriptingBackend = scriptingBackendString;
         }
 
         private static string SanitizeString(string str)
