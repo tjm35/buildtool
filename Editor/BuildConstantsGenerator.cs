@@ -237,6 +237,25 @@ namespace SuperUnityBuild.BuildTool
                 writer.WriteLine("        public const ScriptingBackend scriptingBackend = ScriptingBackend.{0};", scriptingBackendString);
                 writer.WriteLine("        public const Architecture architecture = Architecture.{0};", architectureString);
                 writer.WriteLine("        public const Distribution distribution = Distribution.{0};", distributionString);
+                writer.WriteLine();
+
+                // Push values to accessible version.
+                writer.WriteLine("        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSplashScreen)]");
+                writer.WriteLine("        public static void StoreBuildConstants()");
+                writer.WriteLine("        {");
+
+                void WritePush(string i_target, string i_value)
+                {
+                    writer.WriteLine($"            SuperUnityBuild.Runtime.BuildConstants.{i_target} = {i_value};");
+                }
+                WritePush("BuildDate", "buildDate");
+                WritePush("Version", "version");
+                WritePush("ReleaseType", "releaseType.ToString()");
+                WritePush("Platform", "platform.ToString()");
+                WritePush("Architecture", "architecture.ToString()");
+                WritePush("Distribution", "distribution.ToString()");
+
+                writer.WriteLine("        }");
 
                 // End of class.
                 writer.WriteLine("    }");
